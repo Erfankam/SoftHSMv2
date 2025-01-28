@@ -155,6 +155,9 @@ void fill_CKA_table(std::map<unsigned long, std::string> &t)
 void fill_CKM_table(std::map<unsigned long, std::string> &t)
 {
 	t[CKM_RSA_PKCS_KEY_PAIR_GEN] = "CKM_RSA_PKCS_KEY_PAIR_GEN";
+	// Erfankam
+    t[CKM_LATTICE_KEY_PAIR_GEN] = "CKM_LATTICE_KEY_PAIR_GEN";
+    // Erfankam
 	t[CKM_RSA_PKCS] = "CKM_RSA_PKCS";
 	t[CKM_RSA_9796] = "CKM_RSA_9796";
 	t[CKM_RSA_X_509] = "CKM_RSA_X_509";

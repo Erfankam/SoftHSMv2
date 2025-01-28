@@ -407,6 +407,9 @@ typedef unsigned long ck_key_type_t;
 #define CKK_EC_EDWARDS		(0x40UL)
 #define CKK_VENDOR_DEFINED	((unsigned long) (1UL << 31))
 
+/* Erfankam */
+#define CKK_LATTICE	(8UL)
+/* Erfankam */
 
 typedef unsigned long ck_certificate_type_t;
 
@@ -889,6 +892,14 @@ typedef unsigned long ck_mechanism_type_t;
 /* From version 3.0 */
 #define CKM_EC_EDWARDS_KEY_PAIR_GEN	(0x1055UL)
 #define CKM_EDDSA			(0x1057UL)
+
+/*
+# **********************************
+*/
+#define CKM_LATTICE_KEY_PAIR_GEN	(0x8090UL)
+/*
+# **********************************
+*/
 
 /* Attribute and other constants related to OTP */
 #define CK_OTP_FORMAT_DECIMAL		(0UL)
