@@ -33,7 +33,12 @@ set(SOURCES AESKey.cpp
             RSAPublicKey.cpp
             SymmetricAlgorithm.cpp
             SymmetricKey.cpp
-            )
+            MLDSAPublicKey.cpp
+            MLDSAPrivateKey.cpp
+            MLDSAParameters.cpp
+        MLDSAPrivateKey.h
+        MLDSAPrivateKey.cpp
+)
 
 if(WITH_OPENSSL)
     list(APPEND SOURCES OSSLAES.cpp
@@ -80,7 +85,10 @@ if(WITH_OPENSSL)
                         OSSLSHA384.cpp
                         OSSLSHA512.cpp
                         OSSLUtil.cpp
-                        )
+                        OSSLMLDSA.h
+                        OSSLMLDSA.cpp
+
+    )
 endif(WITH_OPENSSL)
 
 if(WITH_BOTAN)
@@ -129,6 +137,8 @@ if(WITH_BOTAN)
                         BotanSHA512.cpp
                         BotanSymmetricAlgorithm.cpp
                         BotanUtil.cpp
+                        BotanMLDSA.h
+                        BotanMLDSA.cpp
                         )
 endif(WITH_BOTAN)
 
