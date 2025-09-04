@@ -408,6 +408,58 @@ typedef unsigned long ck_key_type_t;
 #define CKK_GOSTR3411		(0x31UL)
 #define CKK_GOST28147		(0x32UL)
 #define CKK_EC_EDWARDS		(0x40UL)
+
+	// Beg Added By Erfankam
+/* an unsigned 8-bit value */
+typedef unsigned char     CK_BYTE;
+
+/* an unsigned 8-bit character */
+typedef CK_BYTE           CK_CHAR;
+
+/* an 8-bit UTF-8 character */
+typedef CK_BYTE           CK_UTF8CHAR;
+
+/* a BYTE-sized Boolean flag */
+typedef CK_BYTE           CK_BBOOL;
+
+/* an unsigned value, at least 32 bits long */
+typedef unsigned long int CK_ULONG;
+
+/* a signed value, the same size as a CK_ULONG */
+typedef long int          CK_LONG;
+
+/* at least 32 bits; each bit is a Boolean flag */
+typedef CK_ULONG          CK_FLAGS;
+
+#define CKK_CHACHA20            0x00000033UL
+#define CKK_POLY1305            0x00000034UL
+#define CKK_AES_XTS             0x00000035UL
+#define CKK_SHA3_224_HMAC       0x00000036UL
+#define CKK_SHA3_256_HMAC       0x00000037UL
+#define CKK_SHA3_384_HMAC       0x00000038UL
+#define CKK_SHA3_512_HMAC       0x00000039UL
+#define CKK_BLAKE2B_160_HMAC    0x0000003aUL
+#define CKK_BLAKE2B_256_HMAC    0x0000003bUL
+#define CKK_BLAKE2B_384_HMAC    0x0000003cUL
+#define CKK_BLAKE2B_512_HMAC    0x0000003dUL
+#define CKK_SALSA20             0x0000003eUL
+#define CKK_X2RATCHET           0x0000003fUL
+//#define CKK_EC_EDWARDS          0x00000040UL
+#define CKK_EC_MONTGOMERY       0x00000041UL
+#define CKK_HKDF                0x00000042UL
+
+#define CKK_SHA512_224_HMAC     0x00000043UL
+#define CKK_SHA512_256_HMAC     0x00000044UL
+#define CKK_SHA512_T_HMAC       0x00000045UL
+#define CKK_HSS                 0x00000046UL
+
+#define CKK_XMSS                0x00000047UL
+#define CKK_XMSSMT              0x00000048UL
+#define CKK_ML_KEM              0x00000049UL
+#define CKK_ML_DSA              0x0000004aUL
+#define CKK_SLH_DSA             0x0000004bUL
+	// End Added By Erfankam
+
 #define CKK_VENDOR_DEFINED	((unsigned long) (1UL << 31))
 
 
@@ -892,6 +944,49 @@ typedef unsigned long ck_mechanism_type_t;
 /* From version 3.0 */
 #define CKM_EC_EDWARDS_KEY_PAIR_GEN	(0x1055UL)
 #define CKM_EDDSA			(0x1057UL)
+
+	// Added By Erfankam From 1216
+#define CKM_ML_KEM_KEY_PAIR_GEN        0x0000000fUL
+#define CKM_ML_KEM                     0x00000017UL
+
+#define CKM_ML_DSA_KEY_PAIR_GEN        0x0000001cUL
+#define CKM_ML_DSA                     0x0000001dUL
+#define CKM_HASH_ML_DSA                0x0000001fUL
+#define CKM_HASH_ML_DSA_SHA224         0x00000023UL
+#define CKM_HASH_ML_DSA_SHA256         0x00000024UL
+#define CKM_HASH_ML_DSA_SHA384         0x00000025UL
+#define CKM_HASH_ML_DSA_SHA512         0x00000026UL
+#define CKM_HASH_ML_DSA_SHA3_224       0x00000027UL
+#define CKM_HASH_ML_DSA_SHA3_256       0x00000028UL
+#define CKM_HASH_ML_DSA_SHA3_384       0x00000029UL
+#define CKM_HASH_ML_DSA_SHA3_512       0x0000002aUL
+#define CKM_HASH_ML_DSA_SHAKE128       0x0000002bUL
+#define CKM_HASH_ML_DSA_SHAKE256       0x0000002cUL
+
+#define CKM_SLH_DSA_KEY_PAIR_GEN       0x0000002dUL
+#define CKM_SLH_DSA                    0x0000002eUL
+#define CKM_HASH_SLH_DSA               0x00000034UL
+#define CKM_HASH_SLH_DSA_SHA224        0x00000036UL
+#define CKM_HASH_SLH_DSA_SHA256        0x00000037UL
+#define CKM_HASH_SLH_DSA_SHA384        0x00000038UL
+#define CKM_HASH_SLH_DSA_SHA512        0x00000039UL
+#define CKM_HASH_SLH_DSA_SHA3_224      0x0000003aUL
+#define CKM_HASH_SLH_DSA_SHA3_256      0x0000003bUL
+#define CKM_HASH_SLH_DSA_SHA3_384      0x0000003cUL
+#define CKM_HASH_SLH_DSA_SHA3_512      0x0000003dUL
+#define CKM_HASH_SLH_DSA_SHAKE128      0x0000003eUL
+#define CKM_HASH_SLH_DSA_SHAKE256      0x0000003fUL
+
+#define CKM_TLS12_EXTENDED_MASTER_KEY_DERIVE    0x00000056UL
+#define CKM_TLS12_EXTENDED_MASTER_KEY_DERIVE_DH 0x00000057UL
+
+
+	/* ML-DSA values for CKA_PARAMETER_SETS */
+typedef CK_ULONG CK_ML_DSA_PARAMETER_SET_TYPE;
+#define CKP_ML_DSA_44          0x00000001UL
+#define CKP_ML_DSA_65          0x00000002UL
+#define CKP_ML_DSA_87          0x00000003UL
+	// End Added By Erfankam To 1248
 
 /* Attribute and other constants related to OTP */
 #define CK_OTP_FORMAT_DECIMAL		(0UL)
@@ -1750,7 +1845,6 @@ typedef struct ck_aes_cbc_encrypt_data_params *CK_AES_CBC_ENCRYPT_DATA_PARAMS_PT
 
 #endif	/* CRYPTOKI_COMPAT */
 
-
 /* System dependencies.  */
 #if defined(_WIN32) || defined(CRYPTOKI_FORCE_WIN32)
 #pragma pack(pop, cryptoki)
