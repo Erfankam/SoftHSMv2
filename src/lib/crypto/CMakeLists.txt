@@ -33,11 +33,9 @@ set(SOURCES AESKey.cpp
             RSAPublicKey.cpp
             SymmetricAlgorithm.cpp
             SymmetricKey.cpp
-            MLDSAPublicKey.cpp
-            MLDSAPrivateKey.cpp
-            MLDSAParameters.cpp
-        MLDSAPrivateKey.h
-        MLDSAPrivateKey.cpp
+            MLPublicKey.cpp
+            MLPrivateKey.cpp
+            MLParameters.cpp
 )
 
 if(WITH_OPENSSL)
@@ -87,6 +85,8 @@ if(WITH_OPENSSL)
                         OSSLUtil.cpp
                         OSSLMLDSA.h
                         OSSLMLDSA.cpp
+                        OSSLMLPublicKey.cpp
+                        OSSLMLPrivateKey.cpp
 
     )
 endif(WITH_OPENSSL)
