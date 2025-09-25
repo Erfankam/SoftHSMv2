@@ -16,11 +16,11 @@ public:
     // Check if the key is of the given type
     virtual bool isOfType(const char* inType);
 
-//    // Get the bit length
-//    virtual unsigned long getBitLength() const;
-//
-//    // Get the output length
-//    virtual unsigned long getOutputLength() const;
+    // Get the bit length
+    virtual unsigned long getBitLength() const;
+
+    // Get the output length
+    virtual unsigned long getOutputLength() const;
 //
 //    // Setters for the RSA private key components
 //    virtual void setP(const ByteString& inP);

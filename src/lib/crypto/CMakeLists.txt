@@ -85,6 +85,7 @@ if(WITH_OPENSSL)
                         OSSLUtil.cpp
                         OSSLMLDSA.h
                         OSSLMLDSA.cpp
+                        OSSLMLKeyPair.cpp
                         OSSLMLPublicKey.cpp
                         OSSLMLPrivateKey.cpp
 

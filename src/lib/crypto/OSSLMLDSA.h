@@ -12,6 +12,10 @@
 class OSSLMLDSA : public AsymmetricAlgorithm
 {
 public:
+
+	// Constructor
+	OSSLMLDSA();
+
 	// Destructor
 	virtual ~OSSLMLDSA() { }
 

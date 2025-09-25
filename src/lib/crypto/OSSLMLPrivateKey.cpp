@@ -20,6 +20,10 @@ OSSLMLPrivateKey::OSSLMLPrivateKey()
 {
 }
 
+OSSLMLPrivateKey::OSSLMLPrivateKey(const MLDSA* inMLDSA)
+{
+}
+
 
 // Destructor
 OSSLMLPrivateKey::~OSSLMLPrivateKey()

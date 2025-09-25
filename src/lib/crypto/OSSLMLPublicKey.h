@@ -13,6 +13,10 @@
 
 #include "config.h"
 #include "MLPublicKey.h"
+#include <openssl/evp.h>
+
+typedef EVP_PKEY MLDSA;
+
 
 class OSSLMLPublicKey : public MLPublicKey
 {
@@ -20,7 +24,7 @@ public:
     // Constructors
     OSSLMLPublicKey();
 
-    // OSSLRSAPublicKey(const RSA* inRSA);
+    OSSLMLPublicKey(const MLDSA* inMLDSA);
 
     // Destructor
     virtual ~OSSLMLPublicKey();
@@ -29,17 +33,17 @@ public:
     static const char* type;
 
     // // Check if the key is of the given type
-    // virtual bool isOfType(const char* inType);
-    //
+    virtual bool isOfType(const char* inType);
+
     // // Setters for the RSA public key components
     // virtual void setN(const ByteString& inN);
     // virtual void setE(const ByteString& inE);
     //
-    // // Set from OpenSSL representation
-    // virtual void setFromOSSL(const RSA* inRSA);
+    // Set from OpenSSL representation
+    virtual void setFromOSSL(const MLDSA* inMLDSA);
 
     // Retrieve the OpenSSL representation of the key
-    // RSA* getOSSLKey();
+    RSA* getOSSLKey();
 
 private:
     // The internal OpenSSL representation
