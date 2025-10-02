@@ -7,11 +7,9 @@
 #include "MLParameters.h"
 #include <string.h>
 
+
 // The type
 /*static*/ const char* MLParameters::type = "Generic MLDSA parameters";
-
-
-
 
 // Are the parameters of the given type?
 bool MLParameters::areOfType(const char* inType)

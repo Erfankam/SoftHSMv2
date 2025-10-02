@@ -17,19 +17,19 @@ public:
     // Check if the key is of the given type
     virtual bool isOfType(const char* inType);
 
+    // Set the bit length
+    void setBitLength(const size_t inBitLen);
+
     // Get the bit length
     virtual unsigned long getBitLength() const;
 
     // Get the output length
     virtual unsigned long getOutputLength() const;
 
-    // Setters for the RSA public key components
-    virtual void setN(const ByteString& inN);
-    virtual void setE(const ByteString& inE);
 
-    // Getters for the RSA public key components
-    virtual const ByteString& getN() const;
-    virtual const ByteString& getE() const;
+    // Are the parameters of the given type?
+    virtual bool areOfType(const char* inType);
+
 
     // Serialisation
     virtual ByteString serialise() const;
@@ -38,6 +38,7 @@ public:
 protected:
     // Public components
     ByteString n,e;
+    size_t bitLen;
 };
 
 #endif // !_SOFTHSM_V2_MLPUBLICKEY_H

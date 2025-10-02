@@ -43,11 +43,11 @@ public:
     virtual void setFromOSSL(const MLDSA* inMLDSA);
 
     // Retrieve the OpenSSL representation of the key
-    RSA* getOSSLKey();
+    MLDSA* getOSSLKey();
 
 private:
     // The internal OpenSSL representation
-    //RSA* rsa;
+    MLDSA* mldsa;
 
     // Create the OpenSSL representation of the key
     void createOSSLKey();

@@ -11,4 +11,38 @@
 #include <openssl/bn.h>
 
 OSSLMLPublicKey::OSSLMLPublicKey()
-= default;
+{
+    mldsa = NULL;
+}
+
+OSSLMLPublicKey::OSSLMLPublicKey(const MLDSA* inType)
+{
+    mldsa = NULL;
+    setFromOSSL(inType);
+}
+
+// Destructor
+OSSLMLPublicKey::~OSSLMLPublicKey()
+{
+    mldsa = NULL;
+}
+
+// The type
+/*static*/ const char* OSSLMLPublicKey::type = "OpenSSL MLDSA Public Key";
+
+// Check if the key is of the given type
+bool OSSLMLPublicKey::isOfType(const char* inType)
+{
+    return !strcmp(type, inType);
+}
+
+void OSSLMLPublicKey::setFromOSSL(const MLDSA* inMLDSA)
+{
+    mldsa = NULL;
+}
+
+// Retrieve the OpenSSL representation of the key
+MLDSA* OSSLMLPublicKey::getOSSLKey()
+{
+    return mldsa;
+}
