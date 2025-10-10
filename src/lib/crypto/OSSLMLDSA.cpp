@@ -14,7 +14,7 @@
 OSSLMLDSA::OSSLMLDSA() {
 }
 
-bool OSSLMLDSA::generateKeyPair(AsymmetricKeyPair** ppKeyPair, AsymmetricParameters* parameters, RNG* rng)
+bool OSSLMLDSA::generateKeyPair(AsymmetricKeyPair** ppKeyPair, AsymmetricParameters* parameters, RNG* rng /*rng = NULL */)
 {
     // Check parameters
     if ((ppKeyPair == NULL) ||

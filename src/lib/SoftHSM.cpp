@@ -821,6 +821,10 @@ void SoftHSM::prepareSupportedMechanisms(std::map<std::string, CK_MECHANISM_TYPE
 	t["CKM_EC_EDWARDS_KEY_PAIR_GEN"] = CKM_EC_EDWARDS_KEY_PAIR_GEN;
 	t["CKM_EDDSA"]			= CKM_EDDSA;
 #endif
+//#ifdef WITH_MLDSA
+	t["CKM_ML_DSA_KEY_PAIR_GEN"] = CKM_ML_DSA_KEY_PAIR_GEN;
+	t["CKM_MLDSA"]			= CKM_ML_DSA;
+//#endif
 	t["CKM_CONCATENATE_DATA_AND_BASE"] = CKM_CONCATENATE_DATA_AND_BASE;
 	t["CKM_CONCATENATE_BASE_AND_DATA"] = CKM_CONCATENATE_BASE_AND_DATA;
 	t["CKM_CONCATENATE_BASE_AND_KEY"] = CKM_CONCATENATE_BASE_AND_KEY;
@@ -925,7 +929,9 @@ CK_RV SoftHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_
 	unsigned long ecdhMinSize = 0, ecdhMaxSize = 0;
 	unsigned long eddsaMinSize = 0, eddsaMaxSize = 0;
 #endif
-
+// WITH_MLDSA
+	unsigned long mldsaMinSize, mldsaMaxSize;
+//#endif
 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 	if (pInfo == NULL_PTR) return CKR_ARGUMENTS_BAD;
 
@@ -1021,6 +1027,20 @@ CK_RV SoftHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_
 	}
 	CryptoFactory::i()->recycleAsymmetricAlgorithm(eddsa);
 #endif
+
+//#ifdef WITH_MLDSA
+	AsymmetricAlgorithm* mldsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::MLDSA);
+	if (mldsa != NULL)
+	{
+		mldsaMinSize = mldsa->getMinKeySize();
+		mldsaMaxSize = mldsa->getMaxKeySize();
+	}
+	else
+	{
+		return CKR_GENERAL_ERROR;
+	}
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(mldsa);
+//#endif
 	pInfo->flags = 0;	// initialize flags
 	switch (type)
 	{
@@ -1306,6 +1326,18 @@ CK_RV SoftHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_
 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
 			break;
 #endif
+//#ifdef WITH_MLDSA
+	case CKM_ML_DSA_KEY_PAIR_GEN:
+		pInfo->ulMinKeySize = eddsaMinSize;
+		pInfo->ulMaxKeySize = eddsaMaxSize;
+		pInfo->flags = CKF_GENERATE_KEY_PAIR;
+		break;
+	case CKM_ML_DSA:
+		pInfo->ulMinKeySize = eddsaMinSize;
+		pInfo->ulMaxKeySize = eddsaMaxSize;
+		pInfo->flags = CKF_SIGN | CKF_VERIFY | CKF_ENCRYPT | CKF_DECRYPT;
+		break;
+//#endif
 	    case CKM_CONCATENATE_DATA_AND_BASE:
 	    case CKM_CONCATENATE_BASE_AND_DATA:
 	    case CKM_CONCATENATE_BASE_AND_KEY:
@@ -6058,8 +6090,11 @@ CK_RV SoftHSM::C_GenerateKeyPair
 			keyType = CKK_EC_EDWARDS;
 			break;
 #endif
-		case CKM_ML_KEM_KEY_PAIR_GEN:
+//#ifdef WITH_MLDSA
+		case CKM_ML_DSA_KEY_PAIR_GEN:
 			keyType = CKK_ML_DSA;
+			break;
+//#endif
 		default:
 			return CKR_MECHANISM_INVALID;
 	}
