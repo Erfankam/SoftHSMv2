@@ -6062,7 +6062,7 @@ CK_RV SoftHSM::C_GenerateKeyPair
 	Session* session = (Session*)handleManager->getSession(hSession);
 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-	// Check the mechanism, only accept RSA, DSA, EC and DH key pair generation.
+	// Check the mechanism, only accept RSA, DSA, EC and DH key AND MLDSA pair generation.
 	CK_KEY_TYPE keyType;
 	switch (pMechanism->mechanism)
 	{

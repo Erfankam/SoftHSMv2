@@ -32,6 +32,8 @@ public:
     // The type
     static const char* type;
 
+
+
     // // Check if the key is of the given type
     virtual bool isOfType(const char* inType);
 

@@ -38,3 +38,36 @@ bool MLParameters::deserialise(ByteString& serialised)
 
     return true;
 }
+
+MLParameters::MLParameters(SecurityLevel level) : secLevel(level) {}
+
+size_t MLParameters::getPublicKeySize() const {
+    switch (secLevel) {
+    case MLDSA_44: return 1312;
+    case MLDSA_65: return 1952;
+    case MLDSA_87: return 2592;
+    default: return 0;
+    }
+}
+
+size_t MLParameters::getPrivateKeySize() const {
+    switch (secLevel) {
+    case MLDSA_44: return 2560;
+    case MLDSA_65: return 4032;
+    case MLDSA_87: return 4896;
+    default: return 0;
+    }
+}
+
+size_t MLParameters::getSignatureSize() const {
+    switch (secLevel) {
+    case MLDSA_44: return 2420;
+    case MLDSA_65: return 3366;
+    case MLDSA_87: return 4595;
+    default: return 0;
+    }
+}
+
+MLParameters::SecurityLevel MLParameters::getSecurityLevel() const {
+    return secLevel;
+}

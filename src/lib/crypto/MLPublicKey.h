@@ -37,8 +37,13 @@ public:
 
 protected:
     // Public components
+
+    size_t k, l;
+    ByteString seed;
+    ByteString q;
     ByteString n,e;
     size_t bitLen;
+
 };
 
 #endif // !_SOFTHSM_V2_MLPUBLICKEY_H
