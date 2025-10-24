@@ -929,8 +929,8 @@ CK_RV SoftHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_
 	unsigned long ecdhMinSize = 0, ecdhMaxSize = 0;
 	unsigned long eddsaMinSize = 0, eddsaMaxSize = 0;
 #endif
-// WITH_MLDSA
-	unsigned long mldsaMinSize, mldsaMaxSize;
+//#ifdef WITH_MLDSA
+	unsigned long mldsaMinSize = 0, mldsaMaxSize = 0;
 //#endif
 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 	if (pInfo == NULL_PTR) return CKR_ARGUMENTS_BAD;
@@ -1040,6 +1040,7 @@ CK_RV SoftHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_
 		return CKR_GENERAL_ERROR;
 	}
 	CryptoFactory::i()->recycleAsymmetricAlgorithm(mldsa);
+
 //#endif
 	pInfo->flags = 0;	// initialize flags
 	switch (type)

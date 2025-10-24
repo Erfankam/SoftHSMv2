@@ -10,6 +10,7 @@
 #include "MLParameters.h"
 #include "OSSLRSAKeyPair.h"
 #include <algorithm>
+#include <OSSLMLKeyPair.h>
 
 OSSLMLDSA::OSSLMLDSA() {
 }
@@ -32,7 +33,46 @@ bool OSSLMLDSA::generateKeyPair(AsymmetricKeyPair** ppKeyPair, AsymmetricParamet
 
     MLParameters* params = (MLParameters*) parameters;
 
-    return false;
+    //FIXME: use parametrized value for security level.
+    EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new_from_name(NULL, "ML-DSA-44", NULL);
+    EVP_PKEY *evpKeyPair = NULL;
+
+    if (!EVP_PKEY_keygen_init(ctx))
+    {
+        ERROR_MSG("RSA key initialization failed (%s)", ctx);
+        EVP_PKEY_CTX_free(ctx);
+        ctx = NULL;
+
+        return false;
+    }
+
+    if (!EVP_PKEY_generate(ctx, &evpKeyPair))
+    {
+        ERROR_MSG("RSA key generation failed (%s)", ctx);
+        EVP_PKEY_CTX_free(ctx);
+        ctx = NULL;
+
+        return false;
+    }
+
+    // Create an asymmetric key-pair object to return
+    OSSLMLKeyPair* kp = new OSSLMLKeyPair();
+
+    ((OSSLMLPublicKey*) kp->getPublicKey())->setFromOSSL(evpKeyPair);
+    ((OSSLMLPrivateKey*) kp->getPrivateKey())->setFromOSSL(evpKeyPair);
+
+    *ppKeyPair = kp;
+
+    // Release the key
+    EVP_PKEY_CTX_free(ctx);
+    EVP_PKEY_free(evpKeyPair);
+    evpKeyPair = NULL;
+
+    return true;
+
+
+
+    return true;
 
 }
 
@@ -86,11 +126,11 @@ bool OSSLMLDSA::decrypt(PrivateKey* privateKey, const ByteString& encryptedData,
 
 unsigned long  OSSLMLDSA::getMinKeySize()
 {
-    return false;
+    return 2560;
 }
 unsigned long  OSSLMLDSA::getMaxKeySize()
 {
-    return false;
+    return 4896;
 }
 
 bool OSSLMLDSA::  deriveKey(SymmetricKey **ppSymmetricKey, PublicKey* publicKey, PrivateKey* privateKey)

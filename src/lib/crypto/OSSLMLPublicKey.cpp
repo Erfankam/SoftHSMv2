@@ -38,7 +38,9 @@ bool OSSLMLPublicKey::isOfType(const char* inType)
 
 void OSSLMLPublicKey::setFromOSSL(const MLDSA* inMLDSA)
 {
-    mldsa = NULL;
+    unsigned char pub[1952];  // ML-DSA-65 public key size
+    size_t pub_len = sizeof(pub);
+    EVP_PKEY_get_octet_string_param(inMLDSA, "pub", pub, pub_len, &pub_len);
 }
 
 // Retrieve the OpenSSL representation of the key
